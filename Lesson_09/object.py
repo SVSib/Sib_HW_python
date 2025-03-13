@@ -6,22 +6,24 @@ class Object:
     def __init__(self, connection_string):
         self.db = create_engine(connection_string)
 
-    def insert_object(self):
-        len_before = self.db.execute("select user_email from users").fetchall()
-        sql = text("insert into users(\"user_email\") values (:new_user_email)")
-        self.db.execute(sql, new_user_email="nikto@nail.ru")
-        len_after = self.db.execute("select user_email from users").fetchall()
-        result = len(len_after) - len(len_before)
-        return result
+    def get_list(self):
+        res = self.db.execute("select user_email from users").fetchall()
+        return len(res)
 
-    def update_object(self):
-        sql = text("update users set subject_id = :sub_id where user_email = :us_mail")
-        self.db.execute(sql, sub_id="8", us_mail="nikto@nail.ru")
-        res = self.db.execute("select * from users where user_email = 'nikto@nail.ru'").fetchall()
+    def insert_object(self, us_email):
+        sql = text("insert into users(\"user_email\") values (:email)")
+        self.db.execute(sql, email=us_email)
+
+    def update_object(self, us_mail, subject_id):
+        sql = text("update users set subject_id = :sub_id where user_email = :email")
+        self.db.execute(sql, sub_id=subject_id, email=us_mail)
+        res = self.db.execute(text("select * from users where user_email = :email"),email = us_mail).fetchall()
         return res[0]["subject_id"]
 
-    def delete_object(self):
-        sql = text("delete from users where user_email = :us_mail")
-        self.db.execute(sql, us_mail="nikto@nail.ru")
-        len_after = self.db.execute("select * from users where user_email = 'nikto@nail.ru'").fetchall()
-        return len(len_after)
+    def delete_object(self, us_mail):
+        sql = text("delete from users where user_email = :email")
+        self.db.execute(sql, email=us_mail)
+
+    def get_list_emails(self, us_mail):
+        sql =  self.db.execute(text("select * from users where user_email = :email"),email = us_mail).fetchall()
+        return len(sql)
