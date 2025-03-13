@@ -5,7 +5,7 @@ db = Object("postgresql://postgres:sss@localhost:5432/QA")
 
 
 def test_insert():
-    len_before  = db.get_list()
+    len_before = db.get_list()
     email = "nikto@nail.ru"
     db.insert_object(email)
     len_after = db.get_list()
