@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from page.shop_object import ShopObject
 
+
 @allure.title("Проверка итоговой стоимости товаров")
 @allure.description("Данный тест проверяет общую стоимость выбранных товаров")
 @allure.feature("READ")

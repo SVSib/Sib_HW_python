@@ -10,13 +10,13 @@ class FormObject:
 
     def first_name(self, term: str):
         """
-				Эта функция выбирает поле "Имя".
-		"""
+                Эта функция выбирает поле "Имя".
+        """
         self._driver.find_element(By.CSS_SELECTOR, "[name='first-name']").send_keys(term)
 
     def last_name(self, term: str):
         """
-        		Эта функция выбирает поле "Фамилия".
+                Эта функция выбирает поле "Фамилия".
         """
         self._driver.find_element(By.CSS_SELECTOR, "[name='last-name']").send_keys(term)
 
